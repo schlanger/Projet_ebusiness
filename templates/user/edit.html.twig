@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier mon profil{% endblock %}
+{% block stylesheets %}
+    <style>
+        .custom-container {
+            position: relative;
+            top: 120px; /* Déplace la div vers le bas par rapport à sa position normale */
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="custom-container mt-5">
+        <h1>Modifier mon profil</h1>
+
+        {{ include('user/_form.html.twig', {'button_label': 'valider'}) }}
+
+        <br>
+        {{ include('user/_delete_form.html.twig') }}
+    </div>
+{% endblock %}
