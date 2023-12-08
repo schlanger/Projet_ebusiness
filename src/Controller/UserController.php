@@ -26,14 +26,21 @@ class UserController extends AbstractController
     }
 
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
+    /**
+     * @IsGranted('ROLE_ADMIN')
+     */
     public function new(Request $request, EntityManagerInterface $entityManager,UserPasswordHasherInterface $passwordHasher): Response
     {
+        if(!$this->isGranted('ROLE_ADMIN')){
+            throw $this->createAccessDeniedException('Pas acces');
+        }
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setRoles(['ROLE_USER']);
+            //$user->setRoles(['ROLE_USER']);
             $user->setPassword($passwordHasher->hashPassword($user, $user->getPassword()));
             $entityManager->persist($user);
             $entityManager->flush();
@@ -64,6 +71,7 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->setRoles(['ROLE_USER']);
             $user->setPassword($passwordHasher->hashPassword($user, $user->getPassword()));
             $entityManager->flush();
 

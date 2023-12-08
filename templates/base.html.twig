@@ -9,6 +9,7 @@
 
 
         {% block stylesheets %}
+
         {% endblock %}
         {% block javascripts %}
         {% endblock %}
@@ -57,20 +58,22 @@
                                         <li><a rel="nofollow" href="https://templatemo.com/page/4" target="_blank">Template Page 4</a></li>
                                     </ul>
                                 </li>
-                                <li class="scroll-to-section"><a href="#explore">Explore</a></li>
-                                <div class="navbar-nav ml-auto">
-                                    {% if app.user %}
-                                        {# Utilisateur connecté, afficher une autre icône ou lien de déconnexion #}
-                                        <a class="nav-link" href="{{ path('app_logout') }}">
-                                            <i class="fas fa-sign-out-alt"></i> Se déconnecter
-                                        </a>
-                                    {% else %}
-                                        {# Utilisateur non connecté, afficher l'icône de connexion et le lien vers la page de connexion #}
-                                        <a class="nav-link" href="{{ path('app_login') }}">
-                                            <i class="fas fa-sign-in-alt"></i> Se connecter
-                                        </a>
-                                    {% endif %}
-                                </div>
+                                <li class="scroll-to-section">
+                                    <div class="navbar-nav ml-auto d-md-flex">
+                                        {% if app.user %}
+                                            {# Utilisateur connecté, afficher une autre icône ou lien de déconnexion #}
+                                            <a class="nav-link" href="{{ path('app_logout') }}">
+                                                <i class="fas fa-sign-out-alt"></i> Se déconnecter
+                                            </a>
+                                        {% else %}
+                                            {# Utilisateur non connecté, afficher l'icône de connexion et le lien vers la page de connexion #}
+                                            <a class="nav-link" href="{{ path('app_login') }}">
+                                                <i class="fas fa-sign-in-alt"></i> Se connecter
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                </li>
+
                             </ul>
                             <a class='menu-trigger'>
                                 <span>Menu</span>

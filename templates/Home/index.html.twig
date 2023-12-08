@@ -47,64 +47,7 @@
 
 
 <!-- ***** Header Area Start ***** -->
-<header class="header-area header-sticky">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <nav class="main-nav">
-                    <!-- ***** Logo Start ***** -->
-                    <a href="{{ path('app_home') }}" class="logo">
-                        <img src="{{ asset('assets/images/logo.png') }} " alt="mon image">
-                    </a>
-                    <!-- ***** Logo End ***** -->
-                    <!-- ***** Menu Start ***** -->
-                    <ul class="nav">
-                        <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-                        <li class="scroll-to-section"><a href="#men">Men's</a></li>
-                        <li class="scroll-to-section"><a href="#women">Women's</a></li>
-                        <li class="scroll-to-section"><a href="#kids">Kid's</a></li>
-                        <li class="submenu">
-                            <a href="javascript:;">Pages</a>
-                            <ul>
-                                <li><a href="about.html">About Us</a></li>
-                                <li><a href="products.html">Products</a></li>
-                                <li><a href="single-product.html">Single Product</a></li>
-                                <li><a href="contact.html">Contact Us</a></li>
-                            </ul>
-                        </li>
-                        <li class="submenu">
-                            <a href="javascript:;">Features</a>
-                            <ul>
-                                <li><a href="#">Features Page 1</a></li>
-                                <li><a href="#">Features Page 2</a></li>
-                                <li><a href="#">Features Page 3</a></li>
-                                <li><a rel="nofollow" href="https://templatemo.com/page/4" target="_blank">Template Page 4</a></li>
-                            </ul>
-                        </li>
-                        <li class="scroll-to-section"><a href="#explore">Explore</a></li>
-                        <div class="navbar-nav ml-auto">
-                            {% if app.user %}
-                                {# Utilisateur connecté, afficher une autre icône ou lien de déconnexion #}
-                                <a class="nav-link" href="{{ path('app_logout') }}">
-                                    <i class="fas fa-sign-out-alt"></i> Se déconnecter
-                                </a>
-                            {% else %}
-                                {# Utilisateur non connecté, afficher l'icône de connexion et le lien vers la page de connexion #}
-                                <a class="nav-link" href="{{ path('app_login') }}">
-                                    <i class="fas fa-sign-in-alt"></i> Se connecter
-                                </a>
-                            {% endif %}
-                        </div>
-                    </ul>
-                    <a class='menu-trigger'>
-                        <span>Menu</span>
-                    </a>
-                    <!-- ***** Menu End ***** -->
-                </nav>
-            </div>
-        </div>
-    </div>
-</header>
+
 <!-- ***** Header Area End ***** -->
 
 <!-- ***** Main Banner Area Start ***** -->

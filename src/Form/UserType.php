@@ -23,6 +23,7 @@ class UserType extends AbstractType
                 'required' => true,
                 'choices'=> [
                     'client' => 'ROLE_USER',
+                    'Admin' => 'ROLE_ADMIN'
                 ]])
             ->add('password',PasswordType::class ,['attr'=>['class'=>'form-control'],'required' => true])
         ;
