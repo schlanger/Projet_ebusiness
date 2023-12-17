@@ -5,8 +5,10 @@ namespace App\Entity;
 use App\Repository\ProductRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
 {
@@ -24,6 +26,12 @@ class Product
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
 
+
+    public function getContentWithoutTags()
+    {
+        return strip_tags($this->content);
+    }
+
     #[ORM\Column]
     private bool $online = false;
 
@@ -40,7 +48,10 @@ class Product
     private ?\DateTimeInterface $updatedAt = null;
 
     #[ORM\Column(length: 255)]
-    private $attachement ;
+    private ?string $attachement = null;
+
+    #[Vich\UploadableField(mapping: 'products',fileNameProperty: 'attachement')]
+    private ?File $attachmentFile = null;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
@@ -97,6 +108,20 @@ class Product
         $this->online = $online;
 
         return $this;
+    }
+
+    public function getAttachmentFile(): ?File
+    {
+        return $this->attachmentFile;
+    }
+
+    public function setAttachmentFile(?File $attachmentFile = null): void
+    {
+        $this->attachmentFile = $attachmentFile;
+
+        if (null !== $attachmentFile){
+            $this->updatedAt = new \DateTimeImmutable();
+        }
     }
 
     public function getSubtitle(): ?string
@@ -169,18 +194,6 @@ class Product
         $this->category_id = $category_id;
 
         return $this;
-    }
-    public function getImageFile(): ?UploadedFile
-    {
-        return $this->attachement;
-    }
-
-    public function setImageFile(?UploadedFile $imageFile): void
-    {
-        $this->attachement = $imageFile;
-        if ($imageFile) {
-            $this->updatedAt = new \DateTimeImmutable();
-        }
     }
 
 }

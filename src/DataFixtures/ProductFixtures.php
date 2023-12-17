@@ -31,8 +31,6 @@ class ProductFixtures extends Fixture
 
         }*/
         // $product = new Product();
-        $imagePath = 'public/assets/images/women-03.jpg';
-        $imagePath2 = 'public/assets/images/baner-right-image-02.jpg';
         $p = [
             1 => [
                 'category_id' => 12,
@@ -72,11 +70,7 @@ class ProductFixtures extends Fixture
 
 
         foreach ($p as $k => $value) {
-            $uploadedFile = new UploadedFile($imagePath, 'women-03.jpg', 'image/jpeg', null, true);
-            $uploadedFile2 = new UploadedFile($imagePath2, 'baner-right-image-02.jpg', 'image/jpeg', null, true);
             $product = new Product();
-            $product->setImageFile($uploadedFile);
-            $product->setImageFile($uploadedFile2);
             $product->setCategoryId($this->getReference('existing-category'));
             $product->setCategoryId($this->getReference('product-men'));
             $product->setTitle($value['title']);
