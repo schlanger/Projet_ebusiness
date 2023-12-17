@@ -3,9 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
-use Cassandra\Blob;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
@@ -40,7 +40,7 @@ class Product
     private ?\DateTimeInterface $updatedAt = null;
 
     #[ORM\Column(length: 255)]
-    private ?Blob $attachement = null;
+    private $attachement ;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
@@ -170,4 +170,17 @@ class Product
 
         return $this;
     }
+    public function getImageFile(): ?UploadedFile
+    {
+        return $this->attachement;
+    }
+
+    public function setImageFile(?UploadedFile $imageFile): void
+    {
+        $this->attachement = $imageFile;
+        if ($imageFile) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
 }

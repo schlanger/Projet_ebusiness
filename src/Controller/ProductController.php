@@ -12,6 +12,7 @@ class ProductController extends AbstractController
     #[Route('/boutique', name: 'app_product')]
     public function index(ProductRepository $productRepository): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         return $this->render('product/index.html.twig', [
             'controller_name' => 'ProductController',
             'products' => $productRepository->findAll()

@@ -25,7 +25,10 @@
                 <td>{{ product.title }}</td>
                 <td>{{ product.content}}</td>
                 <td>{{ product.price }}</td>
-                <td>{{ product.attachement }}</td>
+                <td>
+                    <img src="{{ asset(product.attachement) }}" alt="Product Image" width="90"
+                    height="100">
+                </td>
             </tr>
         {% endfor %}
         </tbody>
