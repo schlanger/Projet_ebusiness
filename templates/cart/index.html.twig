@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon panier{% endblock %}
+
+{% block body %}
+     <div class="m-5">
+         <br>
+    <h1>Mon panier</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Prix</th>
+                <th>Quantité</th>
+                <th>Total</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for element in data %}
+                <tr>
+                    <td>{{ element.product.title }}</td>
+                    <td>{{ element.product.price / 100 }}</td>
+                    <td>{{ element.quantity }}</td>
+                    <td>{{ element.quantity * element.product.price / 100 }}</td>
+                    <td> <a href="{{ path('card_delete',{ id : element.product.id}) }}" class="btn btn-danger">Supprimer</a>
+                         <a href="{{ path('card_remove',{ id: element.product.id}) }}" class="btn btn-warning">-</a>
+                         <a href="{{ path('card_add', { id: element.product.id}) }}" class="btn btn-success">+</a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5">Votre panier est vide</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">Total</td>
+                <td>{{ total / 100}}</td>
+                <td>
+                  <a href="{{ path('card_empty') }}" class="btn btn-danger" >Vider </a>
+                </td>
+
+            </tr>
+        </tfoot>
+    </table>
+     </div>
+{% endblock %}

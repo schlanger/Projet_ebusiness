@@ -16,6 +16,7 @@
             <th>description</th>
             <th>prix</th>
             <th>image</th>
+            <th>Actions </th>
         </tr>
         </thead>
         <tbody>
@@ -24,7 +25,8 @@
                 <td>{{ product.id }}</td>
                 <td>{{ product.title }}</td>
                 <td>{{ product.content}}</td>
-                <td>{{ product.price }}</td>
+                <td>{{ product.price / 100 }}</td>
+                <td><a href="{{ path('card_add',{id: product.id}) }}">Ajouter au panier </a></td>
                 <td>
                     <img src="{{ asset(product.attachement) }}" alt="Product Image" width="90"
                     height="100">

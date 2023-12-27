@@ -9,6 +9,9 @@
 
 
         {% block stylesheets %}
+            .main {
+            margin-top: 80px;
+            }
 
         {% endblock %}
         {% block javascripts %}
@@ -23,6 +26,8 @@
         <link rel="stylesheet" href="{{ asset('assets/css/owl-carousel.css') }} ">
 
         <link rel="stylesheet" href="{{ asset('assets/css/lightbox.css') }} ">
+    </head>
+    <body>
 
         <header class="header-area header-sticky">
             <div class="container">
@@ -84,11 +89,10 @@
                 </div>
             </div>
         </header>
-
-    <body>
-
+        <main>
         {% block body %}
         {% endblock %}
+        </main>
     </body>
 
 </html>
