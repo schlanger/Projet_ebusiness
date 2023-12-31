@@ -26,26 +26,45 @@ class CartService {
        $this->getSession()->set('cart',$card);
     }
 
+    public function removeToCart(int $id) {
+        $cart =  $this->requestStack->getSession()->get('cart',[]);
+        unset($cart[$id]);
+        return $this->getSession()->set('cart',$cart);
+    }
+
+    public function decrease(int $id)
+    {
+        $cart = $this->getSession()->get('cart',[]);
+        if($cart[$id] > 1){
+            $cart[$id]--;
+
+    }else {
+            unset($cart[$id]);
+        }
+        $this->getSession()->set('cart',$cart);
+    }
+    public function removeCartAll()
+    {
+        return $this->getSession()->remove('cart');
+    }
+
 
     public function getTotal(): array {
         $cart = $this->getSession()->get('cart');
         $cartData = [];
+        if($cart) {
+            foreach ($cart as $id => $quantity) {
+                $product = $this->entityManager->getRepository(Product::class)->findOneBy(['id' => $id]);
 
-        foreach ((array)$cart as $id => $quantity) {
-            $product = $this->entityManager->getRepository(Product::class)->findOneBy(['id' => $id]);
+                if (!$product) {
 
-            if ($product) {
+                }
                 $cartData[] = [
                     'product' => $product,
                     'quantity' => $quantity
                 ];
-            } else {
-                echo "Aucun produit n'est présent en base";
-                // Vous pouvez ajouter des logs ou des messages ici pour déboguer
-                // si un produit n'est pas trouvé dans la base de données.
             }
         }
-
         return $cartData;
     }
 

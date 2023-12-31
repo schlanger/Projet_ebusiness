@@ -3,47 +3,53 @@
 {% block title %}Mon panier{% endblock %}
 
 {% block body %}
-     <div class="m-5">
-         <br>
-    <h1>Mon panier</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Produit</th>
-                <th>Prix</th>
-                <th>Quantité</th>
-                <th>Total</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for element in data %}
-                <tr>
-                    <td>{{ element.product.title }}</td>
-                    <td>{{ element.product.price / 100 }}</td>
-                    <td>{{ element.quantity }}</td>
-                    <td>{{ element.quantity * element.product.price / 100 }}</td>
-                    <td> <a href="{{ path('card_delete',{ id : element.product.id}) }}" class="btn btn-danger">Supprimer</a>
-                         <a href="{{ path('card_remove',{ id: element.product.id}) }}" class="btn btn-warning">-</a>
-                         <a href="{{ path('card_add', { id: element.product.id}) }}" class="btn btn-success">+</a>
-                    </td>
-                </tr>
-                {% else %}
-                <tr>
-                    <td colspan="5">Votre panier est vide</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="3">Total</td>
-                <td>{{ total / 100}}</td>
-                <td>
-                  <a href="{{ path('card_empty') }}" class="btn btn-danger" >Vider </a>
-                </td>
+    <div class="m-5">
+        <br>
+        <main class="page-wrapper">
+            {% if cart|length > 0 %}
+                <div class="container position-relative zindex-2 pt-5 pb-lg-5 pb-md-4 pb-2">
+                    <div class="row">
+                        <div class="col-lg-12 offset-lg-1 pt-1">
+                            <h2 class="pt-md-2 my-4 mt-lg-5">Mon panier</h2>
+                            <p> Ajouter d'autres articles disponibles sur le site <a href="{{ path('app_product') }}">Voir les articles </a></p>
+                             <a href="{{ path('cart_remove') }}" >Supprimer tout mon panier</a>
 
-            </tr>
-        </tfoot>
-    </table>
-     </div>
+                            <div class="row">
+                                {% set total = 0 %}
+                                {% for item in cart %}
+                                    {% set total = total + (item.product.price * item.quantity) %}
+                                    <div class="col-lg-4 mb-4">
+                                        <div class="card">
+                                            <img src="{{ asset('uploads/attachments/' ~ item.product.attachement) }}" class="card-img-top" alt="{{ item.product.title }}">
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{ item.product.title }}</h5>
+                                                <p class="card-text">{{ item.product.content }}</p>
+                                                <p class="card-text">{{ item.product.price / 100 }} €</p>
+                                                <div class="input-group">
+                                                    <a href="{{ path('cart_decrease', { 'id': item.product.id }) }}" class="btn btn-danger btn-sm">-</a>
+                                                    <input type="text" class="form-control text-center" value="{{ item.quantity }}" readonly>
+                                                    <a href="{{ path('cart_add', { 'id': item.product.id }) }}" class="btn btn-success btn-sm">+</a>
+                                                </div>
+                                                <a href="{{ path('cart_delete', { 'id': item.product.id }) }}" class="btn btn-warning mt-2">Retirer</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                <ul class="list-unstyled py-3 mb-0">
+                                    <li class="d-flex justify-content-between mb-2">Nombre de produit : <span class="fw-semibold ms-2"> {{ cart|length }}</span></li>
+                                </ul>
+                                <div class="d-flex align-items-center justify-content-between border-top fs-xl pt-4">
+                                    Total : <span class="fs-3 fw-semibold text-dark ms-2">{{ total / 100 }} €</span>
+                                    <button class="btn btn-success" type="submit"> Valider mon panier</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <p>Votre panier est vide.</p>
+                <a href="{{ path('app_product') }}">Voir les produits </a>
+            {% endif %}
+        </main>
+    </div>
 {% endblock %}

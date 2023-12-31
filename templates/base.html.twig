@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
@@ -9,9 +9,11 @@
 
 
         {% block stylesheets %}
+            <style>
             .main {
             margin-top: 80px;
             }
+            </style
 
         {% endblock %}
         {% block javascripts %}
@@ -89,7 +91,7 @@
                 </div>
             </div>
         </header>
-        <main>
+        <main class="main">
         {% block body %}
         {% endblock %}
         </main>
