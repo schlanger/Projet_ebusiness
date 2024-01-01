@@ -28,7 +28,7 @@ class ProductCrudController extends AbstractCrudController
         return [
             TextField::new('title'),
             SlugField::new('slug')->setTargetFieldName('title'),
-            TextEditorField::new('content',\ENT_COMPAT | \ENT_HTML5)->setLabel('Content'),
+            TextEditorField::new('content')->setLabel('Content'),
             BooleanField::new('online'),
             TextField::new('attachmentFile')->setFormType(VichImageType::class)->onlyWhenCreating(),
             ImageField::new('attachement')->setBasePath('/uploads/attachments')->onlyOnIndex(),

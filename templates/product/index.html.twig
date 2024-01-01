@@ -10,15 +10,15 @@
 
             <div class="row">
                 {% for product in products %}
-                    <div class="col-lg-4 mb-4">
-                        <div class="card h-100">
-                            <img src="{{ asset('uploads/attachments/' ~ product.attachement) }}" class="card-img-top" alt="Product Image">
+                    <div class="col-lg-3 mb-4">
+                        <div class="card shadow-sm h-100">
+                            <img src="{{ asset('uploads/attachments/' ~ product.attachement) }}" class="card-img-top img-fluid" alt="Product Image">
                             <div class="card-body">
                                 <h5 class="card-title">{{ product.title }}</h5>
-                                <p class="card-text">{{ product.content }}</p>
-                                <p class="card-text">{{ product.price / 100 }} €</p>
+                                <p class="card-text" style="font-size: 14px;">{{ product.content|raw }}</p>
+                                <p class="card-text"><strong>{{ product.price / 100 }} €</strong></p>
                             </div>
-                            <div class="card-footer">
+                            <div class="card-footer bg-white border-0">
                                 <a href="{{ path('cart_add',{id: product.id}) }}" class="btn btn-success">Ajouter au panier</a>
                             </div>
                         </div>
