@@ -23,6 +23,9 @@ class CartController extends AbstractController
     #[Route('/', name: 'cart_index',methods: ['GET'])]
     public function index(CartService $cartService): Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         //dd($cartService->getTotal());
         return $this->render('cart/index.html.twig', [
             'cart' => $cartService->getTotal(),
@@ -31,6 +34,9 @@ class CartController extends AbstractController
     #[Route('/add/{id<\d+>}', name: 'cart_add',methods: ['GET','POST'])]
     public function add(CartService $cartService,int $id,Product $product, SessionInterface $session)
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         //$session->start();
 
         //dd($panier);
@@ -42,6 +48,9 @@ class CartController extends AbstractController
     #[Route('/remove', name: 'cart_remove')]
     public function remove(CartService $cartService):Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         $cartService->removeCartAll();
 
         return $this->redirectToRoute('app_product');
@@ -50,6 +59,9 @@ class CartController extends AbstractController
     #[Route('/delete/{id}', name: 'cart_delete')]
     public function delete(CartService $cartService,int $id):Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         $cartService->removeToCart($id);
 
         return $this->redirectToRoute('cart_index');
@@ -59,18 +71,11 @@ class CartController extends AbstractController
     #[Route('/decrease/{id}', name: 'cart_decrease')]
     public function decrease(CartService $cartService,int $id):Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         $cartService->decrease($id);
 
         return $this->redirectToRoute('cart_index');
-    }
-    #[Route('/empty', name: 'card_empty')]
-    public function empty(SessionInterface $session)
-    {
-        $session->remove('panier');
-        return $this->redirectToRoute('cart_index');
-    }
-
-    private function getSession() :SessionInterface {
-        return $this->requestStack->getSession();
     }
 }

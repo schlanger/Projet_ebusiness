@@ -1,23 +1,55 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello OrderController!{% endblock %}
+{% block title %}Confirmation de commande{% endblock %}
 
 {% block body %}
-<div class="m-5">
-    <br>
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="container mt-5">
+        <br>
+        <h1 class="mb-4">Création de la commande</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_start(form) }}
+                <div class="mb-4">
+                    <h2>Étape 1 : Choisissez votre adresse de livraison</h2>
+                    <br>
+                    {{ form_row(form.adresses)|replace({'[-br]' : '</br>'})|raw }}
+                </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/yehou/Desktop/ProjetWeb/Projet_ebusiness/src/Controller/OrderController.php'|file_link(0) }}">src/Controller/OrderController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/yehou/Desktop/ProjetWeb/Projet_ebusiness/templates/order/index.html.twig'|file_link(0) }}">templates/order/index.html.twig</a></code></li>
-    </ul>
-</div>
-</div>
+                <div class="mb-4">
+                    <h2>Étape 2 : Choisissez votre mode de livraison</h2>
+                    <br>
+                    {{ form_row(form.transporter)|replace({'[-br]' : '</br>'})|raw }}
+                </div>
+
+                <h3 class="pb-2 pt-md-2 my-4 mt-lg-5">Récapitulatif de la commande <span class="fs-base fw-normal text-muted">({{ recapCart|length }} produits)</span></h3>
+
+                <div class="card mb-4">
+                    {% set total = null %}
+                    {% for item in recapCart %}
+                        {% set total = total + (item.product.price * item.quantity) %}
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <img src="{{ asset('uploads/attachments/' ~ item.product.attachement) }}" alt="{{ item.product.title }}" class="me-3" style="max-width: 100px;">
+                                <div>
+                                    <h5 class="card-title">{{ item.product.title }}</h5>
+                                    <p class="card-text">Prix unitaire : {{ (item.product.price / 100)|number_format(2, ',', ' ') }} €</p>
+                                    <p class="card-text">Quantité : {{ item.quantity }}</p>
+                                    <a href="{{ path('cart_delete', { 'id': item.product.id }) }}" class="btn btn-danger">supprimer l'article
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    <div class="card-footer d-flex align-items-center justify-content-between border-top fs-xl pt-4">
+                        <span>Total : {{ total / 100 }} €</span>
+                        <button class="btn btn-success" type="submit">Valider ma commande</button>
+                    </div>
+                </div>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}
