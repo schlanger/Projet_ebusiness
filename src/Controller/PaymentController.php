@@ -78,7 +78,10 @@ class PaymentController extends  AbstractController {
     #[Route('/order/success/{reference}', name: 'payment_success')]
     public function stripeSuccess($reference,CartService $cartService): Response
     {
-        return $this->render('order/success.html.twig');
+        $order = $this->em->getRepository(Order::class)->findOneBy(['reference' => $reference]);
+        return $this->render('order/success.html.twig',[
+            'recapCart' => $cartService->getTotal(),
+            'transporter' => $order->getTransporterPrice(),]);
     }
 
     #[Route('/order/error/{reference}', name: 'payment_error')]
