@@ -57,7 +57,8 @@ class CartService {
                 $product = $this->entityManager->getRepository(Product::class)->findOneBy(['id' => $id]);
 
                 if (!$product) {
-
+                    $this->removeToCart($id);
+                    continue;
                 }
                 $cartData[] = [
                     'product' => $product,
