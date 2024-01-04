@@ -58,6 +58,9 @@ class UserController extends AbstractController
     public function show(User $user): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        if($user->getId() != $this->getUser()->getId()){
+            return $this->redirectToRoute('error_page', [], Response::HTTP_SEE_OTHER);
+        }
         return $this->render('user/show.html.twig', [
             'user' => $user,
         ]);
@@ -72,6 +75,7 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setRoles(['ROLE_USER']);
+            $user->getPassword();
             $user->setPassword($passwordHasher->hashPassword($user, $user->getPassword()));
             $entityManager->flush();
 
