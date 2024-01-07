@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails du Produit{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/css/lightbox.min.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/js/lightbox-plus-jquery.min.js') }}"></script>
+{% endblock %}
+
+
+{% block body %}
+    <div class="m-5">
+        <br>
+        <div class="container mt-4">
+            <h1 class="mb-5">Détails du Produit</h1>
+
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <div id="productImageContainer">
+                        <a href="{{ asset('uploads/attachments/' ~ product.attachement) }}" data-lightbox="product" data-title="{{ product.title }}">
+                            <img src="{{ asset('uploads/attachments/' ~ product.attachement) }}" class="img-fluid" alt="Product Image">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <h3>{{ product.title }}</h3>
+                    <p style="font-size: 16px;">{{ product.content|raw }}</p>
+                    <h2> <strong>{{ product.price / 100 }} €</strong></h2>
+                    <a href="{{ path('cart_add', {id: product.id}) }}" class="btn btn-warning">Ajouter au panier</a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 mb-4">
+                    <h4>Autres images du produit</h4>
+                    <!-- Ajoutez ici d'autres images du produit si nécessaire -->
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

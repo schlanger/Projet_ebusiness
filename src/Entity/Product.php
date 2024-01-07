@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Cocur\Slugify\Slugify;
 
 #[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
@@ -85,6 +86,11 @@ class Product
 
         return $this;
     }
+    public function generateSlug(): void
+    {
+        $slugify = new Slugify();
+        $this->slug = $slugify->slugify($this->title);
+}
 
     public function getContent(): ?string
     {

@@ -18,8 +18,9 @@
                                 <p class="card-text" style="font-size: 14px;">{{ product.content|raw }}</p>
                                 <p class="card-text"><strong>{{ product.price / 100 }} €</strong></p>
                             </div>
+                            <a href="{{ path('product_show', {'slug': product.slug}) }}" class="btn btn-success">Voir le produit</a>
                             <div class="card-footer bg-white border-0">
-                                <a href="{{ path('cart_add',{id: product.id}) }}" class="btn btn-success">Ajouter au panier</a>
+                                <a href="{{ path('cart_add',{id: product.id}) }}" class="btn btn-warning">Ajouter au panier</a>
                             </div>
                         </div>
                     </div>
