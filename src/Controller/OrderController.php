@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Adress;
 use App\Entity\Order;
 use App\Entity\RecapDetails;
+use App\Form\AdressType;
 use App\Form\OrderType;
 use App\Service\CartService;
 use Doctrine\ORM\EntityManager;
@@ -33,6 +35,35 @@ class OrderController extends AbstractController
             'recapCart'=> $cartService->getTotal()
         ]);
     }
+    #[Route('/order/enter_delivery_adress', name: 'delivery_adress')]
+    public function enterDeliveryAddress(Request $request): Response
+    {
+        $user = $this->getUser();
+         if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+         $adress = new Adress();
+
+        $form = $this->createForm(AdressType::class,$adress);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Enregistrez l'adresse dans la base de données
+            $adress->setUser($user);
+            $this->entityManager->persist($adress);
+
+            $this->entityManager->flush();
+
+            // Redirigez l'utilisateur vers la page de confirmation de commande
+            return $this->redirectToRoute('order_index');
+        }
+
+        return $this->render('order/delivery_adress.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
    #[Route('/order/verify', name: 'order_prepare',methods: ['POST'])]
     public function prepareOrder(CartService $cartService,Request $request):Response {
 

@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Entrer l'adresse de livraison{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <br>
+        <h1 class="mb-4">Entrer l'adresse de livraison</h1>
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row(form.title) }}
+                {{ form_errors(form.title) }}
+                {{ form_row(form.firstname) }}
+                {{ form_errors(form.firstname) }}
+                {{ form_row(form.lastname) }}
+                {{ form_errors(form.lastname) }}
+                {{ form_row(form.company) }}
+                {{ form_errors(form.company) }}
+
+            </div>
+            <div class="col-md-6">
+                {{ form_row(form.adress) }}
+                {{ form_errors(form.adress) }}
+                {{ form_row(form.postalcode) }}
+                {{ form_errors(form.postalcode) }}
+                {{ form_row(form.country) }}
+                {{ form_errors(form.country) }}
+                {{ form_row(form.phone) }}
+                {{ form_errors(form.phone) }}
+                {{ form_row(form.city) }}
+                {{ form_errors(form.city) }}
+            </div>
+        </div>
+        <div class="mt-4">
+            <button type="submit" class="btn btn-success">Enregistrer l'adresse</button>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
