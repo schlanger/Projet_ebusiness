@@ -24,6 +24,11 @@
                     {{ form_row(form.transporter)|replace({'[-br]' : '</br>'})|raw }}
                 </div>
 
+                <div class="mb-4">
+                    <h2>Étape 3 : Choisissez votre mode de paiement</h2>
+                    <br>
+                    {{ form_row(form.payment) }}
+
                 <h3 class="pb-2 pt-md-2 my-4 mt-lg-5">Récapitulatif de la commande <span class="fs-base fw-normal text-muted">({{ recapCart|length }} produits)</span></h3>
 
                 <div class="card mb-4">

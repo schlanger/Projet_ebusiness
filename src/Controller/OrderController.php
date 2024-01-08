@@ -97,7 +97,11 @@ class OrderController extends AbstractController
             $order->setTransporterName($transporter->getTitle());
             $order->setTransporterPrice($transporter->getPrice());
             $order->setIsPaid(0);
-            $order->setMethod('stripe');
+
+            $paymentMethod = $form->get('payment')->getData();
+
+            $order->setMethod($paymentMethod);
+
 
             $this->entityManager->persist($order);
 
