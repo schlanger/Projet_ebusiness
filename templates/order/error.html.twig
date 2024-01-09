@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container mt-5">
+        <br>
+        <h1>Erreur de paiement</h1>
+        <div class="alert alert-danger" role="alert">
+            <i class="fas fa-times-circle"></i> Votre commande n°{{ order.reference }} a échoué.
+        </div>
+    </div>
+
+{% endblock %}

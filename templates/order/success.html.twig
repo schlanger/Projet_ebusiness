@@ -1,29 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Paiement effectué avec succès {% endblock %}
-
-
-{% block css %}
-    <link rel="stylesheet" href="{{ asset('css/font-awesome.css') }}">
-{% endblock %}
-
-{% block body  %}
-
-    {% set total = 0 %}
-    {% for item in recapCart %}
-        {% set total = total + (item.product.price * item.quantity) + transporter %}
-    {% endfor %}
+{% block body %}
 
     <div class="container mt-5">
         <br>
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <i class="fas fa-check-circle fa-5x text-success mb-4"></i>
-                <h1 class="mb-4">Paiement effectué avec succès</h1>
-                <p class="fs-5">Vous avez payé {{ total / 100 }} €</p>
-                <a href="{{ path('app_home') }}" class="btn btn-success">Retour à l'accueil</a>
-            </div>
+        <h1> Paiement validé</h1>
+        <div class="alert alert-success" role="alert">
+            <i class="fas fa-check-circle"></i> Paiement effectué avec succès. Merci !
+            <p>Votre commande n°{{ order.reference }} a bien été prise en compte</p>
         </div>
+        <a href="{{ path('app_home') }}" class="btn btn-primary">Retour à l'accueil</a>
     </div>
 
 {% endblock %}

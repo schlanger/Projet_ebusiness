@@ -24,6 +24,15 @@
                         <span class="d-block fs-base text-dark fw-medium mb-1">{{ transporter|replace({'[-br]' : '</br>'})|raw }}</span>
                     </label>
                 </div>
+                <h3>3. Mode de paiement</h3>
+                <div>
+                    <input class="form-check-input" type="radio" name="deliveryPayment" id="deliveryPayment" checked>
+                    <label class="form-check-label d-flex justify-content-between" for="deliveryPayment">
+                        <span class="d-block fs-base text-dark fw-medium mb-1">{{ method }}</span>
+                    </label>
+                </div>
+
+
             </div>
 
             <div class="col-md-6">
@@ -66,7 +75,7 @@
 
                {% else %}
 
-               <form method="post" action="#">
+               <form method="post" action="{{ path('payment_paypal',{reference: reference}) }}">
                    <button type="submit" class="btn btn-primary btn-lg">Payer par Paypal {{ (total / 100 + (transporter.price / 100))|number_format(2,',','.') }} €</button>
                </form>
                {% endif %}
